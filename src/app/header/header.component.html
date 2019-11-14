@@ -1,25 +1,39 @@
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar header">
-            <a href="#" class="navbar-brand">Recipe Book</a>
-        </div>
-
-
-        <div class="collapse navbar-collapse">
+<div id="navigation" class="container-fluid">
+        <nav id="nav" class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
+          <div  class="navbar-header"  >
+            <button (click)="toggleMenu()"  type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <a [routerLink]="['']" class="navbar-brand">Recipe Book</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div id="toToggle" class="collapse navbar-collapse" navbarToggle   >
             <ul class="nav navbar-nav">
-                <li><a href="#">Recipe</a></li>
-                <li><a href="#">Shopping list</a></li>
+              <li [class.hide]="!this.auth.loggedIn" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['recipes']">Recipes</a></li>
+              <li [class.hide]="!this.auth.loggedIn" routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping List</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown toggle" role="button">Manage <span class="caret"></span></a>
-                    <ul class="dropdown menu">
-                        <li><a href="#">Save Data</a></li>
-                        <li><a href="#">Fetch Data</a></li>
-                    </ul>
-                </li>
+              <li id="login" routerLinkActive="active"><a [routerLink]="['/login']" [class.hide]="this.auth.loggedIn">Login</a></li>
+              <li class="hidden-xs" [class.hide]="!this.auth.loggedIn"><a>{{this.auth.email}}</a></li>
+              <li id="logout" (click)="onLogout()" [class.hide]="!this.auth.loggedIn"><a routerLinkActive="active">LogOut</a></li>
+              <li [class.hide]="!this.auth.loggedIn" class="dropdown" style="cursor: pointer" appDropdown >
+                <a class="dropdown-toggle" data-toggle="dropdown">Save Data<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li (click)="onSaveData()"><a>Save Data</a></li>
+                  <li (click)="fetchData()"><a>Fetch Data</a></li>
+                </ul>
+              </li>
             </ul>
+          </div>
         </div>
-    </div>
-</nav>
+        <!-- /.navbar-collapse -->
+      </nav>
+      
+      
+      </div>
+      
